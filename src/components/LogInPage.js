@@ -1,5 +1,8 @@
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom';
+
 const LogInPage = () => {
+    let navigate = useNavigate()
     const signInDetails = {
         email: '',
         password: ''
@@ -23,6 +26,10 @@ const LogInPage = () => {
         console.log (res.status)
     }
 
+    const handleCreateAccount = () => {
+        navigate('/create-new')
+    }
+
     return (
         <div className="login-container">
             <h1>Sign In</h1>
@@ -37,7 +44,7 @@ const LogInPage = () => {
             <div className="submit-container">
                 <button className="submit-button" onClick={handleSignIn}>Submit</button>
             </div>
-            <button className="create-btn">Create Account</button>
+            <button className="create-btn" onClick={handleCreateAccount} >Create Account</button>
         </div>
     )
 }
