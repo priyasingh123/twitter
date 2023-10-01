@@ -1,6 +1,9 @@
 const express = require('express')
 const User = require('../models/User')
+const bcrypt = require ('bcrypt')
+const jwt = require('jsonwebtoken')
 const {body, validationResult} = require('express-validator')
+const JWT_SECRET = 'tokenistokenandtokenistoken'
 
 const router = express.Router()
 
@@ -21,13 +24,26 @@ router.post ('/create', [
             return res.status(400).json({...req.body, msg:'User Exists'})
         }
 
+        //creating hash from password
+        const salt = await bcrypt.genSalt(10)
+        const secPass = await bcrypt.hash(req.body.password, salt)
+
         user = await User.create({
             name: req.body.name,
             username: req.body.username,
             email: req.body.email,
-            password: req.body.password
+            password: secPass
         })
-        return res.json(user)
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+
+        const authToken = jwt.sign(data, JWT_SECRET)
+        return res.json(authToken)
+
     } catch (error) {
         console.log ('error',error)
         return res.status(500).send (error)
@@ -39,20 +55,35 @@ router.post ('/signin', [
     body('email', 'Enter Email').notEmpty(),
     body('password', 'Enter password').notEmpty()
 ], async(req, res) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        return res.status(400).json(errors.array())
-    }
+    try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json(errors.array())
+        }
 
-    let user = await User.findOne({email: req.body.email})
-    if (!user) {
-        return res.status(400).json({error: 'Invalid Credentials'})
+        let user = await User.findOne({ email: req.body.email })
+        if (!user) {
+            return res.status(400).json({ error: 'Invalid Credentials' })
+        }
+        console.log('user ', user)
+        const pwdCompare = await bcrypt.compare(req.body.password, user.password)
+        if (!pwdCompare) {
+            return res.status(400).json({ error: 'Invalid Credentials' })
+        }
+
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+
+        const authToken = jwt.sign(data, JWT_SECRET)
+        res.json(authToken)
+    } catch (error) {
+        return res.status(500).json({error: 'Bad Request'})
     }
-    console.log ('user ', user)
-    if (user.password == req.body.password) {
-        return res.status(200).json(user)
-    }
-    return res.status(400).json({error: 'Invalid Credentials'})
+    
+    
 })
 
 module.exports = router

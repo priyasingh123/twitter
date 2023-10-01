@@ -12,7 +12,7 @@ app.use (cors())
 app.use(express.json());
 
 app.use ('/api/user', require ('./routes/user.js'))
-//app.use ('/api/tweet', require ('./routes/tweet.js'))
+app.use ('/api/tweet', require ('./routes/tweets.js'))
 
 app.listen (port, () => {
     console.log (`app listening at htts://localhost:${port}`)
