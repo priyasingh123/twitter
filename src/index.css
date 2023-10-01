@@ -11,3 +11,127 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* LogIn Page */
+.login-container {
+  box-shadow: 2px 2px 11px #3d71e0;
+  border-radius: 35px;
+  display: flex;
+  margin: 10% auto;
+  padding: 2%;
+  width: 20%;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.email-container{
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding:0.5rem;
+  width:85%;
+  display:flex;
+  justify-content: space-between;
+}
+
+.password-container{
+  display:flex;
+  justify-content: space-between;
+  width:90%;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+  padding:0.5rem;
+}
+
+.email-input{
+  height: 29px;
+
+}
+
+.email-label{
+  font-size: 24px;
+}
+
+.password-input{
+  height: 29px;
+
+}
+
+.password-label{
+  font-size: 24px;
+}
+
+.submit-container{
+  width:100%;
+  margin-bottom: 2%;
+}
+
+.submit-button{
+  height:30px;
+  border-radius:5px;
+  width:25%;
+  border:none;
+  font-weight: bold;
+  color: white;
+  background-color: #3d71e0;
+}
+
+.submit-button:hover{
+  cursor: pointer;
+}
+
+.create-btn{
+  width: 100%;
+  height: 32px;
+  background-color: #32cd4d;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+}
+
+.create-btn:hover{
+  cursor: pointer;
+  background-color: #25a93b;
+}
+
+/* Create Account Page */
+
+.signup-container{
+  box-shadow: 0 0 5px grey;
+  border-radius: 10px;
+  width: 30%;
+  margin: 5% auto;
+  min-width: 170px;
+  padding: 1rem 0;
+}
+
+
+.signup-heading{
+  margin: 0 2rem;
+  padding: 0;
+}
+
+.create-account-form{
+  display: flex;
+  flex-direction: column;
+  /* border: solid green 1px; */
+}
+
+.signup-input{
+  margin: 0.5rem 2rem;
+  height: 2.5rem;
+  width: 60%;
+  font-size: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border-color: #b8abab;
+  background-color: #dcd3d330;
+
+}
+
+.signup-btn{
+  height:35px;
+  width:30%;
+  margin-left:30%
+
+}
