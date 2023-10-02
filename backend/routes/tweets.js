@@ -7,6 +7,7 @@ const User = require('../models/User')
 
 //ROUTE-1 
 //Post a tweet
+///api/tweet/post
 router.post ('/post', fetchUser, [
     body('description', 'description cannot be empty').notEmpty()
 ], async (req, res) => {
@@ -34,12 +35,32 @@ router.post ('/post', fetchUser, [
         console.log (err)
         res.status(500).send({error: err.message})
     }
-    
-    
 })
 
 
 // ROUTE-2
-// View all tweets
+// Get all tweets
+// /api/tweet/getalltweets
+router.get ('/getalltweets', fetchUser, async(req, res) => {
+    try {
+        const tweets = await Tweets.find()
+
+        const updatedTweets = await Promise.all(tweets.map(async (tweet) => {
+            const newTweet = {};
+            const userId = tweet.user
+            const user = await User.findById(userId)
+            newTweet.username = tweet.username;
+            newTweet.description = tweet.description;
+            newTweet.date = tweet.date;
+            newTweet.name = user.name;
+            return newTweet
+        }))
+        console.log(updatedTweets)
+        res.status(200).json(updatedTweets)
+    } catch (err) {
+        res.status(500).json({error: err})
+    }
+    
+})
 
 module.exports = router

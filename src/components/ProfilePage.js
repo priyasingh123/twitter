@@ -1,11 +1,11 @@
 import avatar from '../utils/img/avatar.jpg'
 
-const ProfilePage = () => {
+const ProfilePage = ({user}) => {
     return (
         <div className='outer-container'>
             <div className='profile-container'>
                 <img src={avatar} style={{ width: "100px", height: "100px" }} />
-                <label className='profile-name'>John Smith</label>
+                <label className='profile-name'>{user.name}</label>
             </div>
             <hr style={{width: "90%"}}></hr>
             <div>

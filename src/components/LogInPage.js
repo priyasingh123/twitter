@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 
-const LogInPage = () => {
+const LogInPage = ({setUser}) => {
     let navigate = useNavigate()
     const signInDetails = {
         email: '',
@@ -24,8 +24,11 @@ const LogInPage = () => {
                 },
                 body: JSON.stringify(details)
             })
-            console.log('res ', res)
+            //successfull login
             if (res.status == 200) {
+                const response = await res.json()
+                setUser(response.user_info)
+                localStorage.setItem('authToken', response.authToken)
                 navigate('/tweet')
             }
             else {
@@ -33,8 +36,8 @@ const LogInPage = () => {
             }
         } catch (err) {
             console.log (err)
+            return <ErrorPage />
         }
-        
     }
 
     const handleCreateAccount = () => {

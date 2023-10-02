@@ -65,7 +65,7 @@ router.post ('/signin', [
         if (!user) {
             return res.status(400).json({ error: 'Invalid Credentials' })
         }
-        console.log('user ', user)
+        //console.log('user ', user)
         const pwdCompare = await bcrypt.compare(req.body.password, user.password)
         if (!pwdCompare) {
             return res.status(400).json({ error: 'Invalid Credentials' })
@@ -78,7 +78,7 @@ router.post ('/signin', [
         }
 
         const authToken = jwt.sign(data, JWT_SECRET)
-        res.json(authToken)
+        res.json({authToken, user_info: {name: user.name, username: user.username, email: user.email}})
     } catch (error) {
         return res.status(500).json({error: 'Bad Request'})
     }

@@ -214,3 +214,30 @@ code {
 .tweetview-container{
   margin-left:10%;
 }
+
+
+/* Tweet styling */
+.tweet-container{
+  display:flex;
+  padding:0.5rem;
+  flex-direction: column;
+  border: solid black 1px;
+  width:70%;
+  margin-bottom:1rem;
+
+  box-shadow: 0 0 5px grey;
+  border-radius: 10px;
+}
+
+.tweet-head{
+  display:flex;
+}
+
+.tweet-head > label{
+  padding-right: 0.5rem;
+}
+
+.tweet-name{
+  font-size: 18px;
+  font-weight: 500;
+}
