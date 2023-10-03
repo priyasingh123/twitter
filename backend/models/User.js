@@ -17,6 +17,10 @@ const UserSchema = new Schema ({
     password: {
         type: String,
         isRequired: true
+    },
+    following: {
+        type: Array,
+        isRequired:false
     }
 })
 
