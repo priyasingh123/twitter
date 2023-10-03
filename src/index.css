@@ -17,7 +17,7 @@ code {
   box-shadow: 2px 2px 11px #3d71e0;
   border-radius: 35px;
   display: flex;
-  margin: 10% auto;
+  margin: 5% auto;
   padding: 2%;
   width: 20%;
   align-items: flex-start;
@@ -62,6 +62,8 @@ code {
 .submit-container{
   width:100%;
   margin-bottom: 2%;
+  display:flex;
+  justify-content: center;
 }
 
 .submit-button{
@@ -75,7 +77,16 @@ code {
 }
 
 .submit-button:hover{
+  background-color: #1041ac;
+}
+
+.submit-button:hover{
   cursor: pointer;
+}
+
+.btn-group{
+  display:flex;
+  justify-content: space-around;
 }
 
 .create-btn{
@@ -132,8 +143,6 @@ code {
 .signup-btn{
   height:35px;
   width:30%;
-  margin-left:30%
-
 }
 
 /* Tweets page */
@@ -161,11 +170,27 @@ code {
   color: white;
   border:none;
   border-radius:4px;
+  margin-left:0.5rem;
   cursor: pointer;
 }
 
 .posting-btn:hover{
   background-color: rgb(35, 168, 240);
+}
+
+.logout-btn{
+  background-color: rgb(240, 84, 60);
+  height: 2rem;
+  margin-left:0.5rem;
+  width: 5rem;
+  color: white;
+  border:none;
+  border-radius:4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover{
+  background-color: rgb(191, 33, 9);
 }
 
 /* Main page */
@@ -240,4 +265,12 @@ code {
 .tweet-name{
   font-size: 18px;
   font-weight: 500;
+}
+
+.without-error{
+  display: none;
+}
+
+.with-error{
+  color: red;
 }

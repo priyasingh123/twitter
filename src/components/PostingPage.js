@@ -1,10 +1,17 @@
 import {useState} from 'react'
 import ErrorPage from './ErrorPage'
+import {useNavigate} from 'react-router-dom'
 
 const PostingPage = ({posts, setPosts, user}) => {
+    const navigate = useNavigate()
     const [postDesc, setPostDesc] = useState('')
     const handleChange = (e) => {
         setPostDesc(e.target.value)
+    }
+
+    const handleLogOut = () => {
+        localStorage.removeItem('authToken')
+        navigate('/')
     }
 
     const handlePostSubmit = async () => {
@@ -42,6 +49,7 @@ const PostingPage = ({posts, setPosts, user}) => {
         <div className="posting-container">
             <textarea placeholder="What's happening" rows="7" cols="50" maxLength={250} value={postDesc} onChange={handleChange}></textarea>
             <button className="posting-btn" onClick={handlePostSubmit} ><i className="bi bi-send"></i> Post</button>
+            <button className="logout-btn" onClick={handleLogOut} >Log Out</button>
         </div>
     )
     

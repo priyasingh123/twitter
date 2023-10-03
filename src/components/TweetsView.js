@@ -2,7 +2,7 @@
 
 const TweetsView = ({posts}) => {
     
-    posts = posts.sort(sortByDate)
+    posts = posts.length>0 ? posts?.sort(sortByDate) : []
     return (
         <div className="tweetview-container">
             <h3>Recent Tweets</h3>

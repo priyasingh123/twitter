@@ -2,8 +2,10 @@ import ErrorPage from "./ErrorPage";
 import ProfilePage from "./ProfilePage";
 import Tweets from "./Tweets";
 import {useEffect, useState} from 'react'
+import { useNavigate } from "react-router-dom";
 
 const MainPage = ({user}) => {
+    const navigate = useNavigate()
     const [tweets, setTweets] = useState([])
     useEffect(() => {
         //fetch all tweets
@@ -16,9 +18,15 @@ const MainPage = ({user}) => {
                         "auth-token": localStorage.getItem('authToken')
                     }
                 })
-                const result = await res.json()
-                // console.log(result)
-                setTweets(result)
+                
+                if (res.status === 200) {
+                    const result = await res.json()
+                    // console.log(result)
+                    setTweets(result)
+                }
+                else {
+                    navigate('/error')
+                }
             } catch (err) {
                 console.log(err, 'Error occured')
                 return <ErrorPage />

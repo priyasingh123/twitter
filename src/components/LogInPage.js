@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 
@@ -10,9 +10,16 @@ const LogInPage = ({setUser}) => {
     }
 
     const [details, setDetails] = useState(signInDetails)
+    const [errorMsg, setErrorMsg] = useState('')
+    const [errorCls, setErrorCls] = useState('without-error')
     const handleChange = (e) => {
+        setErrorCls('without-error')
         setDetails({...details, [e.target.name]: e.target.value})
     }
+
+    useEffect(() => {
+        localStorage.removeItem('authToken')
+    },[])
 
     const handleSignIn = async () => {
         //API call 
@@ -24,20 +31,22 @@ const LogInPage = ({setUser}) => {
                 },
                 body: JSON.stringify(details)
             })
+            const response = await res.json()
             //successfull login
             if (res.status == 200) {
-                const response = await res.json()
                 setUser(response.user_info)
                 localStorage.setItem('authToken', response.authToken)
                 navigate('/tweet')
             }
             else {
-                return <ErrorPage />
+                console.log (response.error)
+                setErrorMsg(response.error)
+                setErrorCls('with-error')
             }
         } catch (err) {
             console.log (err)
-            return <ErrorPage />
         }
+        setDetails({email: '', password:''})
     }
 
     const handleCreateAccount = () => {
@@ -46,6 +55,7 @@ const LogInPage = ({setUser}) => {
 
     return (
         <div className="login-container">
+            <label className={errorCls}>{errorMsg}</label>
             <h1>Sign In</h1>
             <div className="email-container">
                 <label className="email-label">Email: </label>
