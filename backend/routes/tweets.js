@@ -74,6 +74,8 @@ router.get ('/getalltweets', fetchUser, async(req, res) => {
                 return tweets
             }))
         }
+        const myTweets = await Tweets.find({user: req.user.id}).select('username description date').populate({path:'user', select: 'name'})
+        allTweets = [...allTweets, myTweets]
         allTweets = allTweets?.flat(Infinity)
         res.status(200).json(allTweets)
     } catch(err) {

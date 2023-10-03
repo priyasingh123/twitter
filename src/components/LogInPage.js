@@ -60,12 +60,10 @@ const LogInPage = ({setUser}) => {
             <label className={errorCls}>{errorMsg}</label>
             <h1>Sign In</h1>
             <div className="email-container">
-                <label className="email-label">Email: </label>
-                <input className="email-input" onChange={handleChange} name="email" value={details.email}/>
+                <input className="email-input" onChange={handleChange} name="email" value={details.email} placeholder="abc@gmail.com"/>
             </div>
             <div className="password-container">
-                <label className="password-label">Password: </label>
-                <input value={details.password} onChange={handleChange} name="password" className="password-input" type="password" />
+                <input value={details.password} onChange={handleChange} name="password" className="password-input" type="password" placeholder="password"/>
             </div>
             <div className="submit-container">
                 <button className="submit-button" onClick={handleSignIn}>Submit</button>

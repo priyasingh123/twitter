@@ -1,7 +1,7 @@
 import avatar from '../utils/img/avatar.jpg'
 import {useState, useEffect} from 'react'
 
-const ProfilePage = ({user}) => {
+const ProfilePage = ({user, fetchData}) => {
     const [userInfo, setUserInfo] = useState(user)
     const [suggestions, setSuggestions] = useState([])
 
@@ -11,7 +11,7 @@ const ProfilePage = ({user}) => {
 
     useEffect(() => {
         //API call to fetch non following
-        const fetchData = async () => {
+        const fetchUsers = async () => {
             try {
                 const res = await fetch('http://localhost:5000/api/user/getnonfollowing', {
                     method: 'GET',
@@ -33,7 +33,7 @@ const ProfilePage = ({user}) => {
             }
             
         }
-        fetchData()
+        fetchUsers()
         
     },[])
 
@@ -54,6 +54,7 @@ const ProfilePage = ({user}) => {
                     return suggest.email !== suggestion.email
                 })
                 setSuggestions(updatedSuggestion)
+                fetchData()
             }
             else {
                 console.log ('Some error Occured')

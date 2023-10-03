@@ -17,7 +17,6 @@ const PostingPage = ({posts, setPosts, user}) => {
     const handlePostSubmit = async () => {
         
         //API call
-
         try {
             const res = await fetch('http://localhost:5000/api/tweet/post', {
                 method: 'POST',
@@ -31,7 +30,7 @@ const PostingPage = ({posts, setPosts, user}) => {
             })
             if (res.status === 200) {
                 console.log (res.status)
-                setPosts([...posts, {username: user?.username, description: postDesc, date: new Date().toLocaleString(), name: user.name}])
+                setPosts([...posts, {username: user?.username, description: postDesc, date: new Date().toLocaleString(), user: {name: user.name}}])
             }
             else {
                 console.log ('Some Error Occured')
@@ -40,6 +39,9 @@ const PostingPage = ({posts, setPosts, user}) => {
         } catch(err) {
             console.log ('Error Occured', err)
             return <ErrorPage/>
+        }
+        finally{
+            setPostDesc('')
         }
         
     }
