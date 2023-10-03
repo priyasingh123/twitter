@@ -47,7 +47,7 @@ const PostingPage = ({posts, setPosts, user}) => {
 
     return (
         <div className="posting-container">
-            <textarea placeholder="What's happening" rows="7" cols="50" maxLength={250} value={postDesc} onChange={handleChange}></textarea>
+            <textarea className="posting-box" placeholder="What's happening?" rows="7" cols="50" maxLength={250} value={postDesc} onChange={handleChange}></textarea>
             <button className="posting-btn" onClick={handlePostSubmit} ><i className="bi bi-send"></i> Post</button>
             <button className="logout-btn" onClick={handleLogOut} >Log Out</button>
         </div>

@@ -38,7 +38,7 @@ const ProfilePage = ({user}) => {
     },[])
 
     const handleFollow = async(suggestion) => {
-        console.log ('follow clicked',suggestion)
+        // console.log ('follow clicked',suggestion)
         //API call to follow 
         try {
             const res = await fetch('http://localhost:5000/api/user/addtofollowing', {
@@ -61,7 +61,6 @@ const ProfilePage = ({user}) => {
         } catch (err) {
             console.log ('Error Occured')
         }
-        
     }
 
     return (

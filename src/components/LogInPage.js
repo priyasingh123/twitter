@@ -44,6 +44,8 @@ const LogInPage = ({setUser}) => {
                 setErrorCls('with-error')
             }
         } catch (err) {
+            setErrorMsg('Server Crashed')
+            setErrorCls('with-error')
             console.log (err)
         }
         setDetails({email: '', password:''})

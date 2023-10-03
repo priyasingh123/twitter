@@ -41,25 +41,46 @@ router.post ('/post', fetchUser, [
 // ROUTE-2
 // Get all tweets
 // /api/tweet/getalltweets
+// router.get ('/getalltweets', fetchUser, async(req, res) => {
+//     try {
+//         const tweets = await Tweets.find()
+
+//         const updatedTweets = await Promise.all(tweets.map(async (tweet) => {
+//             const newTweet = {};
+//             const userId = tweet.user
+//             const user = await User.findById(userId)
+//             newTweet.username = tweet.username;
+//             newTweet.description = tweet.description;
+//             newTweet.date = tweet.date;
+//             newTweet.name = user.name;
+//             return newTweet
+//         }))
+//         console.log(updatedTweets)
+//         res.status(200).json(updatedTweets)
+//     } catch (err) {
+//         res.status(500).json({error: err})
+//     }
+    
+// })
+
 router.get ('/getalltweets', fetchUser, async(req, res) => {
     try {
-        const tweets = await Tweets.find()
-
-        const updatedTweets = await Promise.all(tweets.map(async (tweet) => {
-            const newTweet = {};
-            const userId = tweet.user
-            const user = await User.findById(userId)
-            newTweet.username = tweet.username;
-            newTweet.description = tweet.description;
-            newTweet.date = tweet.date;
-            newTweet.name = user.name;
-            return newTweet
-        }))
-        console.log(updatedTweets)
-        res.status(200).json(updatedTweets)
-    } catch (err) {
-        res.status(500).json({error: err})
+        const userInfo = await User.findById(req.user.id)
+        let allTweets = []
+        if (userInfo.following.length > 0) {
+            allTweets = await Promise.all(userInfo.following.map(async (e) => {
+                const user = await User.findOne({ email: e });
+                const tweets = await Tweets.find({ user: user._id }).select('username description date').populate({path: 'user', select: 'name'})
+                return tweets
+            }))
+        }
+        allTweets = allTweets?.flat(Infinity)
+        res.status(200).json(allTweets)
+    } catch(err) {
+        console.log (err)
+        res.status(500).send({error: err.message})
     }
+    
     
 })
 

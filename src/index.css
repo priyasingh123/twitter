@@ -178,6 +178,11 @@ code {
   background-color: rgb(35, 168, 240);
 }
 
+.posting-box{
+  border-radius: 10px;
+  padding:1rem;
+}
+
 .logout-btn{
   background-color: rgb(240, 84, 60);
   height: 2rem;

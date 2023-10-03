@@ -6,16 +6,19 @@ const TweetsView = ({posts}) => {
     return (
         <div className="tweetview-container">
             <h3>Recent Tweets</h3>
+            {posts.length == 0 ? <label>No Tweets Found</label> : 
             
-            {posts?.map((post) => {
+            
+
+            posts?.map((post) => {
                 // console.log (post)
-                const {name, username, date, description} = post
+                const {user, username, date, description} = post
                 const formattedDate = new Date(date).toLocaleString()
                 // console.log (formattedDate)
                 return (
-                    <div className="tweet-container" key={post.date }> 
+                    <div className="tweet-container" key={post.email}> 
                         <div className="tweet-head"> 
-                            <label className="tweet-name">{name}</label>
+                            <label className="tweet-name">{user.name}</label>
                             <label><em>{`@${username}`}</em></label>
                             <label>{formattedDate} </label>                        
                         </div>
