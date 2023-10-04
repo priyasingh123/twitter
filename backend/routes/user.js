@@ -122,7 +122,7 @@ router.get('/getnonfollowing',fetchUser, async(req,res) => {
 router.post('/addtofollowing', fetchUser, async (req, res) => {
     const userInfo = await User.findById(req.user.id)
     console.log ('email ',req.body)
-    const updatedFollowing = [...userInfo.following, req.body.email]
+    const updatedFollowing = [...userInfo?.following, req.body.email]
 
     const update = await User.findOneAndUpdate({_id:req.user.id}, {following: updatedFollowing}, {new: true})
     console.log (update)
