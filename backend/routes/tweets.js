@@ -37,6 +37,10 @@ router.post ('/post', fetchUser, [
     }
 })
 
+
+//ROUTE-2
+//Get all tweets
+///api/tweet/alltweets
 router.get ('/alltweets', fetchUser, async(req, res) => {
     try {
         const userInfo = await User.findById(req.user.id)

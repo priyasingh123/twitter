@@ -21,7 +21,8 @@ const LogInPage = ({setUser}) => {
         localStorage.removeItem('authToken')
     },[])
 
-    const handleSignIn = async () => {
+    const handleSignIn = async (e) => {
+        e.preventDefault()
         //API call 
         try {
             const res = await fetch('http://localhost:5000/api/user/signin', {
@@ -58,17 +59,19 @@ const LogInPage = ({setUser}) => {
     return (
         <div className="login-container">
             <label className={errorCls}>{errorMsg}</label>
-            <h1>Sign In</h1>
-            <div className="email-container">
-                <input className="email-input" onChange={handleChange} name="email" value={details.email} placeholder="abc@gmail.com"/>
-            </div>
-            <div className="password-container">
-                <input value={details.password} onChange={handleChange} name="password" className="password-input" type="password" placeholder="password"/>
-            </div>
-            <div className="submit-container">
-                <button className="submit-button" onClick={handleSignIn}>Submit</button>
-            </div>
-            <button className="create-btn" onClick={handleCreateAccount} >Create Account</button>
+                <h1>Sign In</h1>
+                <form style={{width:"100%"}}>
+                <div className="email-container">
+                    <input className="email-input" onChange={handleChange} name="email" value={details.email} placeholder="abc@gmail.com"/>
+                </div>
+                <div className="password-container">
+                    <input value={details.password} onChange={handleChange} name="password" className="password-input" type="password" placeholder="password"/>
+                </div>
+                <div className="submit-container">
+                    <button className="submit-button" onClick={(e) => handleSignIn(e)}>Submit</button>
+                </div>
+                <button className="create-btn" onClick={handleCreateAccount} >Create Account</button>
+            </form>
         </div>
     )
 }

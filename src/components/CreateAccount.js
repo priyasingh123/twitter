@@ -14,6 +14,7 @@ const CreateAccount = () => {
     const [details, setDetails] = useState(accountDetails)
 
     const handleSignUp = async (e) => {
+        e.preventDefault();
         //clear form 
         const updatedDetails = {...details}
         for (let key in details) {
@@ -21,9 +22,7 @@ const CreateAccount = () => {
         }
         setDetails(updatedDetails)
 
-
-        e.preventDefault();
-
+        let response
         try {
             const res = await fetch('http://localhost:5000/api/user/create', {
                 method: 'POST',
@@ -32,7 +31,7 @@ const CreateAccount = () => {
                 },
                 body: JSON.stringify(details)
             })
-            const response = await res.json()
+            response = await res.json()
             if (res.status === 200) {
                 navigate('/')
             }
@@ -43,7 +42,8 @@ const CreateAccount = () => {
             }
         } catch (err) {
             console.log (err)
-
+            setErrorMsg(response?.msg)
+            setErrorCls('with-error')
         }
     }
 
