@@ -37,18 +37,18 @@ router.post ('/post', fetchUser, [
     }
 })
 
-router.get ('/getalltweets', fetchUser, async(req, res) => {
+router.get ('/alltweets', fetchUser, async(req, res) => {
     try {
         const userInfo = await User.findById(req.user.id)
         let allTweets = []
         if (userInfo.following.length > 0) {
             allTweets = await Promise.all(userInfo.following.map(async (e) => {
                 const user = await User.findOne({ email: e });
-                const tweets = await Tweets.find({ user: user._id }).select('username description date').populate({path: 'user', select: 'name'})
+                const tweets = await Tweets.find({ user: user?._id }).populate({path: 'user', select: 'name'}).select('username description date')
                 return tweets
             }))
         }
-        const myTweets = await Tweets.find({user: req.user.id}).select('username description date').populate({path:'user', select: 'name'})
+        const myTweets = await Tweets.find({user: req.user.id}).populate({path:'user', select: 'name'}).select('username description date')
         allTweets = [...allTweets, myTweets]
         allTweets = allTweets?.flat(Infinity)
         res.status(200).json(allTweets)

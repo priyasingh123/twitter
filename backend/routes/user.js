@@ -88,14 +88,14 @@ router.post ('/signin', [
 })
 
 //ROUTE-3
-//getnonfollowing
-router.get('/getnonfollowing',fetchUser, async(req,res) => {
+//get all users who are not followed
+router.get('/notfollowed',fetchUser, async(req,res) => {
     const userInfo = await User.findById(req.user.id)
-    const following = userInfo.following
+    const following = userInfo?.following
     const allUsers = await User.find({_id: {$ne: req.user.id}})
     // console.log ('following array',following)
     let updatedUsers 
-    if (following.length == 0) {
+    if (following?.length == 0) {
         //send all users in response
         // console.log ('here')
         updatedUsers = allUsers.map ((user) => {
@@ -105,7 +105,7 @@ router.get('/getnonfollowing',fetchUser, async(req,res) => {
     else {
         // select those users whose email not in following array
         updatedUsers = allUsers.filter ((user) => {
-            if (following.find((email) => user.email == email) == undefined) {
+            if (following?.find((email) => user.email == email) == undefined) {
                 return ({name: user.name, username: user.username, email: user.email})
             }
         })
@@ -118,8 +118,8 @@ router.get('/getnonfollowing',fetchUser, async(req,res) => {
 })
 
 //ROUTE-4
-//add to following
-router.post('/addtofollowing', fetchUser, async (req, res) => {
+//add a user to following
+router.post('/adduser', fetchUser, async (req, res) => {
     const userInfo = await User.findById(req.user.id)
     console.log ('email ',req.body)
     const updatedFollowing = [...userInfo?.following, req.body.email]

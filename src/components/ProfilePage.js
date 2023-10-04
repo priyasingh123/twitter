@@ -13,7 +13,7 @@ const ProfilePage = ({user, fetchData}) => {
         //API call to fetch non following
         const fetchUsers = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/user/getnonfollowing', {
+                const res = await fetch('http://localhost:5000/api/user/notfollowed', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const ProfilePage = ({user, fetchData}) => {
         // console.log ('follow clicked',suggestion)
         //API call to follow 
         try {
-            const res = await fetch('http://localhost:5000/api/user/addtofollowing', {
+            const res = await fetch('http://localhost:5000/api/user/adduser', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
