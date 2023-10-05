@@ -6,7 +6,7 @@ const TweetsView = ({posts, pageNum, setPageNum, fetchData}) => {
     let next = posts?.next
     let prev = posts?.previous 
     posts = posts?.results?.length>0 ? posts?.results?.sort(sortByDate) : []
-    console.log (next, prev)
+    // console.log (next, prev)
     return (
         <div className="tweetview-container">
             <h3>Recent Tweets</h3>

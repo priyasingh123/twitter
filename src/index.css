@@ -143,6 +143,7 @@ code {
 
 /* Tweets page */
 .tweets-container{
+  position:relative;
   box-shadow: 0 0 5px grey;
   border-radius: 10px;
   width: 60%;
@@ -153,6 +154,9 @@ code {
 .footer-container{
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 0.2rem;
+  right: 50%;
 }
 
 .page-link{

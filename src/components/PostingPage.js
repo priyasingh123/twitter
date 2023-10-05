@@ -1,8 +1,11 @@
 import {useState} from 'react'
 import ErrorPage from './ErrorPage'
 import {useNavigate} from 'react-router-dom'
+import { useContext } from 'react'
+import UserInfoContext from '../utils/context/userInfo'
 
-const PostingPage = ({posts, setPosts, user}) => {
+const PostingPage = ({posts, setPosts}) => {
+    const {user} = useContext(UserInfoContext)
     const navigate = useNavigate()
     const [postDesc, setPostDesc] = useState('')
     const handleChange = (e) => {

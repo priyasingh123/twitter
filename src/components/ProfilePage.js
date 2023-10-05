@@ -1,13 +1,11 @@
 import avatar from '../utils/img/avatar.jpg'
 import {useState, useEffect} from 'react'
+import { useContext } from 'react'
+import UserInfoContext from '../utils/context/userInfo'
 
-const ProfilePage = ({user, fetchData}) => {
-    const [userInfo, setUserInfo] = useState(user)
+const ProfilePage = ({fetchData}) => {
+    const {user} = useContext(UserInfoContext)
     const [suggestions, setSuggestions] = useState([])
-
-    useEffect(() => {
-        setUserInfo(user)
-    },[user])
 
     useEffect(() => {
         //API call to fetch non following
@@ -68,7 +66,7 @@ const ProfilePage = ({user, fetchData}) => {
         <div className='outer-container'>
             <div className='profile-container'>
                 <img src={avatar} style={{ width: "100px", height: "100px" }} />
-                <label className='profile-name'>{userInfo.name}</label>
+                <label className='profile-name'>{user.name}</label>
             </div>
             <hr style={{width: "90%"}}></hr>
             <div>

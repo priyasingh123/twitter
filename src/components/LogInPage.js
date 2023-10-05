@@ -1,8 +1,11 @@
 import {useState, useEffect} from 'react'
 import {useNavigate} from 'react-router-dom';
 import ErrorPage from './ErrorPage';
+import { useContext } from 'react';
+import UserInfoContext from '../utils/context/userInfo';
 
-const LogInPage = ({setUser}) => {
+const LogInPage = () => {
+    const {user, setUser} = useContext(UserInfoContext)
     let navigate = useNavigate()
     const signInDetails = {
         email: '',

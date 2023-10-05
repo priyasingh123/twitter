@@ -2,7 +2,7 @@ import PostingPage from "./PostingPage"
 import TweetsView from "./TweetsView"
 import {useEffect, useState} from 'react'
 
-const Tweets = ({tweets, user, pageNum, setPageNum , fetchData}) => {
+const Tweets = ({tweets, pageNum, setPageNum , fetchData}) => {
     // console.log (tweets)
     const [posts, setPosts] = useState(tweets)
 
@@ -11,7 +11,7 @@ const Tweets = ({tweets, user, pageNum, setPageNum , fetchData}) => {
     }, [tweets])
     return (
         <div className="tweets-container">
-        <PostingPage posts={posts} setPosts={setPosts} user={user}/>
+        <PostingPage posts={posts} setPosts={setPosts}/>
         <TweetsView posts={posts} pageNum={pageNum} setPageNum={setPageNum} fetchData={fetchData}/>
         </div>
     )

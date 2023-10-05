@@ -4,7 +4,7 @@ import Tweets from "./Tweets";
 import {useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
 
-const MainPage = ({user}) => {
+const MainPage = () => {
     const navigate = useNavigate()
     const [tweets, setTweets] = useState([])
     const [pageNum, setPageNum] = useState(1)
@@ -39,8 +39,8 @@ const MainPage = ({user}) => {
 
     return (
         <div className="main-container">
-            <ProfilePage user={user} fetchData={fetchData}/>
-            <Tweets tweets={tweets} user={user} pageNum={pageNum} setPageNum={setPageNum} fetchData={fetchData}/>
+            <ProfilePage fetchData={fetchData}/>
+            <Tweets tweets={tweets} pageNum={pageNum} setPageNum={setPageNum} fetchData={fetchData}/>
         </div>
     )
 }
