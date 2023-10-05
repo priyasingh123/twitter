@@ -42,6 +42,18 @@ router.post ('/post', fetchUser, [
 //Get all tweets
 ///api/tweet/alltweets
 router.get ('/alltweets', fetchUser, async(req, res) => {
+    let page = parseInt (req?.query?.page)
+    let limit = 5
+    let startIndex = (page-1)*limit
+    let endIndex = (page)*limit
+    let results = {}
+    if (startIndex > 0) {
+        results.previous = {
+            page: page-1
+        }
+    }
+    
+
     try {
         const userInfo = await User.findById(req.user.id)
         let allTweets = []
@@ -55,7 +67,15 @@ router.get ('/alltweets', fetchUser, async(req, res) => {
         const myTweets = await Tweets.find({user: req.user.id}).populate({path:'user', select: 'name'}).select('username description date')
         allTweets = [...allTweets, myTweets]
         allTweets = allTweets?.flat(Infinity)
-        res.status(200).json(allTweets)
+
+        if (endIndex < allTweets?.length) {
+            results.next = {
+                page: page+1
+            }
+        }
+        results.results = allTweets.slice(startIndex, endIndex)
+        console.log (results)
+        res.status(200).json(results)
     } catch(err) {
         console.log (err)
         res.status(500).send({error: err.message})

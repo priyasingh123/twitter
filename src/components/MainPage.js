@@ -7,14 +7,15 @@ import { useNavigate } from "react-router-dom";
 const MainPage = ({user}) => {
     const navigate = useNavigate()
     const [tweets, setTweets] = useState([])
+    const [pageNum, setPageNum] = useState(1)
     useEffect(() => {
         //fetch all tweets
-        fetchData()
+        fetchData(pageNum)
     }, [])
 
-    async function fetchData() {
+    async function fetchData(page) {
         try {
-            const res = await fetch('http://localhost:5000/api/tweet/alltweets', {
+            const res = await fetch(`http://localhost:5000/api/tweet/alltweets?page=${page}`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -39,7 +40,7 @@ const MainPage = ({user}) => {
     return (
         <div className="main-container">
             <ProfilePage user={user} fetchData={fetchData}/>
-            <Tweets tweets={tweets} user={user}/>
+            <Tweets tweets={tweets} user={user} pageNum={pageNum} setPageNum={setPageNum} fetchData={fetchData}/>
         </div>
     )
 }
