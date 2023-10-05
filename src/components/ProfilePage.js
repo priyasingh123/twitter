@@ -52,7 +52,7 @@ const ProfilePage = ({fetchData}) => {
                     return suggest.email !== suggestion.email
                 })
                 setSuggestions(updatedSuggestion)
-                fetchData()
+                fetchData(1)
             }
             else {
                 console.log ('Some error Occured')

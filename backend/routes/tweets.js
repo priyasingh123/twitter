@@ -53,7 +53,7 @@ router.get ('/alltweets', fetchUser, async(req, res) => {
         }
     }
     
-
+    
     try {
         const userInfo = await User.findById(req.user.id)
         let allTweets = []
@@ -73,6 +73,8 @@ router.get ('/alltweets', fetchUser, async(req, res) => {
                 page: page+1
             }
         }
+        //sort allTweets based on latest date
+        allTweets = allTweets.sort ((a,b) => b.date-a.date)
         results.results = allTweets.slice(startIndex, endIndex)
         console.log (results)
         res.status(200).json(results)

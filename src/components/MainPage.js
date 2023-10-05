@@ -25,7 +25,7 @@ const MainPage = () => {
             
             if (res.status === 200) {
                 const result = await res.json()
-                // console.log(result)
+                console.log('Result ',result)
                 setTweets(result)
             }
             else {
