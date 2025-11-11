@@ -1,5 +1,6 @@
-import {useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { API_BASE_URL } from '../utils/base/baseURI';
 
 const CreateAccount = () => {
     const navigate = useNavigate()
@@ -24,7 +25,7 @@ const CreateAccount = () => {
 
         let response
         try {
-            const res = await fetch('http://localhost:5000/api/user/create', {
+            const res = await fetch(`${API_BASE_URL}/user/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

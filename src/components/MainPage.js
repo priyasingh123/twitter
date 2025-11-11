@@ -3,6 +3,7 @@ import ProfilePage from "./ProfilePage";
 import Tweets from "./Tweets";
 import {useEffect, useState} from 'react'
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../utils/base/baseURI";
 
 const MainPage = () => {
     const navigate = useNavigate()
@@ -15,7 +16,7 @@ const MainPage = () => {
 
     async function fetchData(page) {
         try {
-            const res = await fetch(`http://localhost:5000/api/tweet/alltweets?page=${page}`, {
+            const res = await fetch(`${API_BASE_URL}/tweet/alltweets?page=${page}`, {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",

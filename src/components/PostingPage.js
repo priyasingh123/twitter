@@ -2,7 +2,8 @@ import {useState} from 'react'
 import ErrorPage from './ErrorPage'
 import {useNavigate} from 'react-router-dom'
 import { useContext } from 'react'
-import UserInfoContext from '../utils/context/userInfo'
+import UserInfoContext from '../utils/context/userInfo';
+import { API_BASE_URL } from '../utils/base/baseURI';
 
 const PostingPage = ({posts, setPosts}) => {
     const {user} = useContext(UserInfoContext)
@@ -21,7 +22,7 @@ const PostingPage = ({posts, setPosts}) => {
         
         //API call
         try {
-            const res = await fetch('http://localhost:5000/api/tweet/post', {
+            const res = await fetch(`${API_BASE_URL}/tweet/post`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

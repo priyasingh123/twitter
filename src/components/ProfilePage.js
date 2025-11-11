@@ -1,7 +1,8 @@
 import avatar from '../utils/img/avatar.jpg'
 import {useState, useEffect} from 'react'
 import { useContext } from 'react'
-import UserInfoContext from '../utils/context/userInfo'
+import UserInfoContext from '../utils/context/userInfo';
+import { API_BASE_URL } from '../utils/base/baseURI';
 
 const ProfilePage = ({fetchData}) => {
     const {user} = useContext(UserInfoContext)
@@ -11,7 +12,7 @@ const ProfilePage = ({fetchData}) => {
         //API call to fetch non following
         const fetchUsers = async () => {
             try {
-                const res = await fetch('http://localhost:5000/api/user/notfollowed', {
+                const res = await fetch(`${API_BASE_URL}/user/notfollowed`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ const ProfilePage = ({fetchData}) => {
         // console.log ('follow clicked',suggestion)
         //API call to follow 
         try {
-            const res = await fetch('http://localhost:5000/api/user/adduser', {
+            const res = await fetch(`${API_BASE_URL}/user/adduser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +71,7 @@ const ProfilePage = ({fetchData}) => {
             </div>
             <hr style={{width: "90%"}}></hr>
             <div>
-                <label>421 tweets 200 followers 125 following</label>
+                <label>{user.tweets} tweets --followers-- followers {user.following} following</label>
             </div>
             <hr style={{width: "90%"}}></hr>
             <div className='suggestion-container'>

@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const {body, validationResult} = require('express-validator')
 const JWT_SECRET = 'tokenistokenandtokenistoken'
 const fetchUser = require('../middleware/fetchUser')
+const Tweets = require('../models/Tweet')
 
 const router = express.Router()
 
@@ -74,6 +75,8 @@ router.post ('/signin', [
             return res.status(400).json({ error: 'Invalid Credentials' })
         }
 
+        let myTweets = await Tweets.find({user: user._id})
+
         const data = {
             user: {
                 id: user.id
@@ -81,7 +84,7 @@ router.post ('/signin', [
         }
 
         const authToken = jwt.sign(data, JWT_SECRET)
-        res.json({authToken, user_info: {name: user.name, username: user.username, email: user.email}})
+        res.json({authToken, user_info: {name: user.name, username: user.username, email: user.email, following: user.following?.length, tweets: myTweets.length}})
     } catch (error) {
         return res.status(500).json({error: 'Bad Request'})
     }    
@@ -121,9 +124,12 @@ router.get('/notfollowed',fetchUser, async(req,res) => {
 //add a user to following
 router.post('/adduser', fetchUser, async (req, res) => {
     const userInfo = await User.findById(req.user.id)
-    console.log ('email ',req.body)
+    //console.log ('email ',req.body)
     const updatedFollowing = [...userInfo?.following, req.body.email]
 
+    //fetch User whose email is req.body.email
+    //const userFollow = await User.find({email: req.body.email})
+    //await User.findOneAndUpdate({email:req.body.email}, {follower: userFollow.follower+1}, {new: true})
     const update = await User.findOneAndUpdate({_id:req.user.id}, {following: updatedFollowing}, {new: true})
     console.log (update)
     res.status(200).json(update)

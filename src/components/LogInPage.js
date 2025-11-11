@@ -3,6 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 import { useContext } from 'react';
 import UserInfoContext from '../utils/context/userInfo';
+import { API_BASE_URL } from '../utils/base/baseURI';
 
 const LogInPage = () => {
     const {user, setUser} = useContext(UserInfoContext)
@@ -28,7 +29,7 @@ const LogInPage = () => {
         e.preventDefault()
         //API call 
         try {
-            const res = await fetch('http://localhost:5000/api/user/signin', {
+            const res = await fetch(`${API_BASE_URL}/user/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
